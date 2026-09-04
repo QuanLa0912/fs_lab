@@ -1,0 +1,103 @@
+:root {
+  --brand: #00538c;
+  --ink: #1f2933;
+  --muted: #5c6b7a;
+  --line: #d9e1e8;
+  --panel: #ffffff;
+  --page: #f4f6f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background-color: var(--page);
+  line-height: 1.5;
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.5rem;
+  background-color: var(--panel);
+  border-bottom: 4px solid var(--brand);
+}
+
+.site-header_logo {
+  height: auto;
+  max-width: 180px;
+}
+
+.site-header_text h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--brand);
+}
+
+/* Directory */
+.directory {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.department {
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.department_name {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.15rem;
+  color: var(--brand);
+  border-bottom: 1px solid var(--line);
+}
+
+.employee-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.employee {
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.employee:last-child {
+  border-bottom: none;
+}
+
+.employee_name {
+  font-weight: 600;
+}
+
+.employee_title {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Footer */
+.site-footer {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  background-color: var(--panel);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
