@@ -41,6 +41,11 @@ body {
   color: var(--brand);
 }
 
+.greeting {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+}
+
 /* Directory */
 .directory {
   display: grid;
@@ -49,6 +54,7 @@ body {
   padding: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
+  align-items: start;
 }
 
 .department {
@@ -73,23 +79,12 @@ body {
 }
 
 .employee {
-  display: flex;
-  flex-direction: column;
   padding: 0.4rem 0;
   border-bottom: 1px solid var(--line);
 }
 
 .employee:last-child {
   border-bottom: none;
-}
-
-.employee_name {
-  font-weight: 600;
-}
-
-.employee_title {
-  font-size: 0.85rem;
-  color: var(--muted);
 }
 
 /* Footer */
