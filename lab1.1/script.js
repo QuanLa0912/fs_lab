@@ -1,38 +1,33 @@
-const { createElement } = require("react");
+import employees from "./employees.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const main = document.getElementById("directory");
+const main = document.getElementById("directory");
+document.getElementById("current-year").textContent = new Date().getFullYear();
 
-    document.getElementById("current-year").textContent = new Date().getFullYear();
+const grouped = new Map();
 
-    try {
-        const response = await fetch("employees.csv");
-        const text = await response.text();
+employees.forEach(({ name, department }) => {
+    if(!grouped.has(department)) grouped.set(department,[]);
+    grouped.get(department).push(name);
+});
 
-        const rows = text.trim().split().slice(1);
+grouped.forEach((names, department) => {
+    const section = document.createElement("section");
+    section.className = "department";
 
-        const grouped = new Map();
+    const heading = document.createElement("h2");
+    heading.className = "department_name";
+    heading.textContent = department;
 
-        rows.forEach((row) => {
-            const [firstName, lastName, departments] = row.split(",");
-            const fullName = [firstName, lastName].filter(Boolean).join("");
+    const employeesList = document.createElement("ul");
+    employeesList.className = "employee-list";
 
-            if (!grouped.has(departments)) grouped.set(departments, []);
-            grouped.get(departments).push(fullName);
-        });
+    names.forEach((name) => {
+        const item = document.createElement("li");
+        item.className = "employee";
+        item.textContent = name;
+        employeesList.append(item);
+    });
 
-        grouped.forEach((names, department) => {
-            const section = createElement("section");
-
-            const heading = document.createElement("h2");
-            heading.textContent = department;
-
-            const employeeList = document.createElement("ul");
-            names.forEach((name) => {
-                const item = document.createElement("li");
-                item.textContent = name;
-                employeeList.append(item);
-            })
-        })
-    }
-})
+    section.append(heading, employeesList);
+    main.append(section);
+});
