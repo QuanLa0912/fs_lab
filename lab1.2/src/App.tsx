@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import Footer from "./components/footer/Footer";
+import EmployeeForm from "./components/employee-form/EmployeeForm";
 import departmentData from "./data/employees.json";
 import type { Department, Employee } from "./types/employee";
 import "./App.css";
@@ -23,6 +24,10 @@ function App() {
     <>
       <Header />
       <Main departments={departments} />
+      <EmployeeForm 
+        departmentNames={departments.map((department) => department.name)}
+        onAddEmployee={handleAddEmployee}
+      />
       <Footer />
     </>
   );
