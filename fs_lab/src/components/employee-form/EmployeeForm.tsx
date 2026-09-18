@@ -5,7 +5,7 @@ import type { Employee, EmployeeFormProps } from "../../types/employee";
 export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormProps) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [department, setDepartment] = useState("");
+    const [department, setDepartment] = useState(departmentNames[0]);
     const [error, setError] = useState("");
 
     function handleSubmit(event: FormEvent) {
@@ -53,9 +53,9 @@ export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormPro
                 </label>
 
                 {error && <p className="form-error">{error}</p>}
-            </form>
 
-            <button>Add</button>
+                <button type="submit">Add</button>
+            </form>
         </section>
     )
 }
