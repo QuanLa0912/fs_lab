@@ -18,7 +18,7 @@ export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormPro
 
         const employee: Employee = {
             firstName: firstName.trim(),
-            lastName: lastName.trim() || undefined;
+            lastName: lastName.trim() || undefined
         };
 
         onAddEmployee(department, employee);
@@ -54,6 +54,8 @@ export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormPro
 
                 {error && <p className="form-error">{error}</p>}
             </form>
+
+            <button>Add</button>
         </section>
     )
 }
