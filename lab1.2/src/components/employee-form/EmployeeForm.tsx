@@ -37,7 +37,25 @@ export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormPro
                     <input value={firstName} 
                     onChange={(event) => setFirstName(event.target.value)}/>
                 </label>
+                <label className="form-field">
+                    Last name
+                    <input value={lastName}
+                    onChange={(event) => setLastName(event.target.value)} />
+                </label>
+                <label className="form-field">
+                    Department
+                    <select value={department}
+                    onChange={(event) => setDepartment(event.target.value)}>
+                        {departmentNames.map((name) => (
+                            <option key={name} value={name}>{name}</option>
+                        ))}
+                    </select>
+                </label>
+
+                {error && <p className="form-error">{error}</p>}
             </form>
         </section>
     )
 }
+
+export default EmployeeForm;
