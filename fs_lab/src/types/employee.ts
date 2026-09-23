@@ -9,7 +9,7 @@ export interface Department {
   employees: Employee[];
 }
 
-export interface MainProps {
+export interface EmployeeListProps {
   departments: Department[];
 }
 

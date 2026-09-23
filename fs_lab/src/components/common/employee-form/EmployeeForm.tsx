@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 import type { FormEvent } from "react";
-import type { Employee, EmployeeFormProps } from "../../types/employee";
+import type { Employee, EmployeeFormProps } from "../../../types/employee";
 
 export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormProps) {
     const [firstName, setFirstName] = useState("");

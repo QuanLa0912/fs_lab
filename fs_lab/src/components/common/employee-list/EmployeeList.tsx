@@ -1,10 +1,7 @@
-import type { Employee, MainProps } from "../../types/employee";
+import type { EmployeeListProps } from "../../../types/employee";
+import getFullName from "../../../utils/getFullName";
 
-function getFullName(employee: Employee): string {
-    return [employee.firstName, employee.lastName].filter(Boolean).join(" ");
-}
-
-export function Main({ departments }: MainProps) {
+export function EmployeeList({ departments }: EmployeeListProps) {
     return (
         <main className="directory">
             {departments.map((department) => (
@@ -23,4 +20,4 @@ export function Main({ departments }: MainProps) {
     );
 }
 
-export default Main;
+export default EmployeeList;
