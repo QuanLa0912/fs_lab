@@ -1,31 +1,29 @@
-﻿import { useState } from "react";
 import type { FormEvent } from "react";
-import type { Employee, EmployeeFormProps } from "../../../types/employee";
+import type { EmployeeFormProps } from "../../../types/employee";
+import useFormInput from "../../../hooks/useFormInput";
+import employeeService from "../../../services/employeeService";
 
-export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormProps) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [department, setDepartment] = useState(departmentNames[0]);
-    const [error, setError] = useState("");
+export function EmployeeForm({ departmentNames, onEmployeeAdded }: EmployeeFormProps) {
+    const firstName = useFormInput();
+    const lastName = useFormInput();
+    const department = useFormInput(departmentNames[0] ?? "");
 
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
 
-        if(firstName.trim() === "") {
-            setError("First name is required");
+        const error = employeeService.validateFirstName(firstName.value);
+        firstName.setError(error);
+        if (error) {
             return;
         }
 
-        const employee: Employee = {
-            firstName: firstName.trim(),
-            lastName: lastName.trim() || undefined
+        const employee = {
+            firstName: firstName.value.trim(),
+            lastName: lastName.value.trim() || undefined,
         };
+        employeeService.createEmployee(department.value, employee);
 
-        onAddEmployee(department, employee);
-
-        setFirstName("");
-        setLastName("");
-        setError("");
+        onEmployeeAdded(employee);
     }
 
     return(
@@ -33,26 +31,24 @@ export function EmployeeForm({ departmentNames, onAddEmployee }: EmployeeFormPro
             <h2>Add Employee Form</h2>
             <form onSubmit={handleSubmit}>
                 <label className="form-field">
-                    First name 
-                    <input value={firstName} 
-                    onChange={(event) => setFirstName(event.target.value)}/>
+                    First name
+                    <input value={firstName.value} onChange={firstName.onChange} />
                 </label>
+                {firstName.error && <p className="form-error">{firstName.error}</p>}
+
                 <label className="form-field">
                     Last name
-                    <input value={lastName}
-                    onChange={(event) => setLastName(event.target.value)} />
+                    <input value={lastName.value} onChange={lastName.onChange} />
                 </label>
+
                 <label className="form-field">
                     Department
-                    <select value={department}
-                    onChange={(event) => setDepartment(event.target.value)}>
+                    <select value={department.value} onChange={department.onChange}>
                         {departmentNames.map((name) => (
                             <option key={name} value={name}>{name}</option>
                         ))}
                     </select>
                 </label>
-
-                {error && <p className="form-error">{error}</p>}
 
                 <button type="submit">Add</button>
             </form>

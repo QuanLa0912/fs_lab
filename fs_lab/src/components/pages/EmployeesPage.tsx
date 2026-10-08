@@ -1,20 +1,13 @@
 import { useState } from "react";
 import EmployeeList from "../common/employee-list/EmployeeList";
 import EmployeeForm from "../common/employee-form/EmployeeForm";
-import departmentData from "../../data/employees";
-import type { Department, Employee } from "../../types/employee";
+import employeeService from "../../services/employeeService";
 
 export function EmployeesPage() {
-    const [departments, setDepartments] = useState<Department[]>(departmentData);
+    const [departments, setDepartments] = useState(() => employeeService.getDepartments());
 
-    function handleAddEmployee(departmentName: string, employee: Employee) {
-        setDepartments((current) =>
-            current.map((department) =>
-                department.name === departmentName
-                    ? { ...department, employees: [...department.employees, employee] }
-                    : department
-            )
-        );
+    function handleEmployeeAdded() {
+        setDepartments(employeeService.getDepartments());
     }
 
     return (
@@ -22,7 +15,7 @@ export function EmployeesPage() {
             <EmployeeList departments={departments} />
             <EmployeeForm
                 departmentNames={departments.map((department) => department.name)}
-                onAddEmployee={handleAddEmployee}
+                onEmployeeAdded={handleEmployeeAdded}
             />
         </>
     );
