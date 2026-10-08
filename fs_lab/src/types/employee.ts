@@ -1,4 +1,3 @@
- 
 export interface Employee {
   firstName: string;
   lastName?: string;
@@ -15,6 +14,6 @@ export interface EmployeeListProps {
 
 export interface EmployeeFormProps {
   departmentNames: string[];
-  onAddEmployee: (departmentName: string, employee: Employee) => void;
+  onEmployeeAdded: (employee: Employee) => void;
 }
 
