@@ -8,3 +8,7 @@ export interface Role extends Employee {
 export interface OrganizationListProps {
   roles: Role[];
 }
+
+export interface OrganizationFormProps {
+  onRoleAdded: (role: Role) => void;
+}
