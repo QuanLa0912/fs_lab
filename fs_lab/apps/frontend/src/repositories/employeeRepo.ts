@@ -1,4 +1,3 @@
-import Departments from "../apis/employeesData";
 import type { Department, Employee } from "../types/employee";
 
 let departments: Department[] = structuredClone(Departments);
