@@ -8,7 +8,7 @@ export function useOrganizationForm(onRoleAdded: (role: Role) => void) {
     const lastName = useFormInput();
     const role = useFormInput();
 
-    function handleSubmit(event: FormEvent) {
+    async function handleSubmit(event: FormEvent) {
         event.preventDefault();
 
         const firstNameError = organizationService.validateFirstName(firstName.value);
@@ -24,9 +24,12 @@ export function useOrganizationForm(onRoleAdded: (role: Role) => void) {
             firstName: firstName.value.trim(),
             lastName: lastName.value.trim() || undefined,
         };
-        organizationService.createRole(newRole);
-
-        onRoleAdded(newRole);
+        try {
+            await organizationService.createRole(newRole);
+            onRoleAdded(newRole);
+        } catch (error) {
+            role.setError(error instanceof Error ? error.message : "Failed to create role");
+        }
     }
 
     return {

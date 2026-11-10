@@ -2,8 +2,8 @@ import employeeRepo from "../repositories/employeeRepo";
 import type { Department, Employee } from "../types/employee";
 
 export const employeeService = {
-    getDepartments(): Department[] {
-        return employeeRepo.getDepartments()
+    getDepartments(): Promise<Department[]> {
+        return employeeRepo.getDepartments();
     },
 
     validateFirstName(firstName: string): string {
@@ -13,9 +13,9 @@ export const employeeService = {
         return "";
     },
 
-    createEmployee(departmentName: string, employee: Employee){
-        employeeRepo.createEmployee(departmentName, employee)
-    }
+    createEmployee(departmentName: string, employee: Employee): Promise<void> {
+        return employeeRepo.createEmployee(departmentName, employee);
+    },
 }
 
 export default employeeService;

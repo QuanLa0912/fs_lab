@@ -8,7 +8,7 @@ export function EmployeeForm({ departmentNames, onEmployeeAdded }: EmployeeFormP
     const lastName = useFormInput();
     const department = useFormInput(departmentNames[0] ?? "");
 
-    function handleSubmit(event: FormEvent) {
+    async function handleSubmit(event: FormEvent) {
         event.preventDefault();
 
         const error = employeeService.validateFirstName(firstName.value);
@@ -21,9 +21,12 @@ export function EmployeeForm({ departmentNames, onEmployeeAdded }: EmployeeFormP
             firstName: firstName.value.trim(),
             lastName: lastName.value.trim() || undefined,
         };
-        employeeService.createEmployee(department.value, employee);
-
-        onEmployeeAdded(employee);
+        try {
+            await employeeService.createEmployee(department.value, employee);
+            onEmployeeAdded(employee);
+        } catch (error) {
+            firstName.setError(error instanceof Error ? error.message : "Failed to create employee");
+        }
     }
 
     return(
