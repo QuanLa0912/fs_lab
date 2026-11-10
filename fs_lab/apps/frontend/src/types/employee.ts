@@ -1,4 +1,3 @@
- 
 export interface Employee {
   firstName: string;
   lastName?: string;
@@ -9,12 +8,12 @@ export interface Department {
   employees: Employee[];
 }
 
-export interface MainProps {
+export interface EmployeeListProps {
   departments: Department[];
 }
 
 export interface EmployeeFormProps {
   departmentNames: string[];
-  onAddEmployee: (departmentName: string, employee: Employee) => void;
+  onEmployeeAdded: (employee: Employee) => void;
 }
 
