@@ -1,19 +1,24 @@
-import Departments from "../data/employeesData";
-import type { Department, Employee } from "../types/employee";
-
-let departments: Department[] = structuredClone(Departments);
+import prisma from "../../../../prisma/client";
+import type { Employee } from "../types/employee";
 
 export const employeeRepo = {
-    getDepartments(): Department[] {
-        return departments;
+    getDepartments() {
+        return prisma.department.findMany({
+            include: { employees: true },
+            orderBy: { name: "asc" },
+        });
     },
-
-    createEmployee(departmentName: string, employee: Employee): void {
-        departments = departments.map((department) =>
-            department.name === departmentName
-                ? { ...department, employees: [...department.employees, employee] }
-                : department
-        );
+    findDepartmentByName(name: string) {
+        return prisma.department.findUnique({ where: { name } });
+    },
+    createEmployee(departmentId: number, employee: Employee) {
+        return prisma.employee.create({
+            data: {
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                departmentId,
+            },
+        });
     },
 };
 

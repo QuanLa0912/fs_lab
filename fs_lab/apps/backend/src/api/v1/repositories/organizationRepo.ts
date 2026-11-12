@@ -1,21 +1,23 @@
-import Organization from "../data/organizationData";
+import prisma from "../../../../prisma/client";
 import type { Role } from "../types/organization";
 
-let organization: Role[] = structuredClone(Organization);
-
 export const organizationRepo = {
-    getRoles(): Role[] {
-        return organization;
+    getRoles() {
+        return prisma.role.findMany({ orderBy: { id: "asc" } });
     },
-
-    createRole(role: Role): void {
-        organization = [...organization, role];
+    findRoleByName(roleName: string) {
+        return prisma.role.findFirst({
+            where: { role: { equals: roleName.trim(), mode: "insensitive" } },
+        });
     },
-
-    updateRole(roleName: string, updatedRole: Role): void {
-        organization = organization.map((member) =>
-            member.role === roleName ? updatedRole : member
-        );
+    createRole(role: Role) {
+        return prisma.role.create({ data: role });
+    },
+    updateRole(roleName: string, updatedRole: Role) {
+        return prisma.role.update({
+            where: { role: roleName },
+            data: updatedRole,
+        });
     },
 };
 

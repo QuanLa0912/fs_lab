@@ -4,21 +4,15 @@ import { AppError } from "../error/errors";
 import { HTTP_STATUS } from "../constants/httpConstant";
 
 export const organizationService = {
-    getRoles(): Role[] {
+    async getRoles() {
         return organizationRepo.getRoles();
     },
 
-    createRole(role: Role): Role {
-        const roleName = role.role.trim().toLowerCase();
-        const existing = organizationRepo
-            .getRoles()
-            .find((member) => member.role.toLowerCase() === roleName);
-
+    async createRole(role: Role) {
+        const existing = await organizationRepo.findRoleByName(role.role);
         if (!existing) {
-            organizationRepo.createRole(role);
-            return role;
+            return organizationRepo.createRole(role);
         }
-
         if (existing.firstName.trim() !== "") {
             const fullName = [existing.firstName, existing.lastName].filter(Boolean).join(" ");
             throw new AppError(
@@ -27,10 +21,7 @@ export const organizationService = {
                 HTTP_STATUS.CONFLICT
             );
         }
-
-        const filledRole: Role = { ...role, role: existing.role };
-        organizationRepo.updateRole(existing.role, filledRole);
-        return filledRole;
+        return organizationRepo.updateRole(existing.role, { ...role, role: existing.role });
     },
 };
 
