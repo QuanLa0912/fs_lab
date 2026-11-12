@@ -1,6 +1,118 @@
-import type { Role } from "../types/organization";
+// Default data used by prisma/seed.ts to fill the database.
+// Edit these arrays, then run `npx prisma db seed` to reload the data.
 
-export const organization: Role[] = [
+type EmployeeSeed = {
+  firstName: string;
+  lastName?: string;
+};
+
+type DepartmentSeed = {
+  name: string;
+  employees: EmployeeSeed[];
+};
+
+type RoleSeed = {
+  role: string;
+  firstName: string;
+  lastName?: string;
+  pronouns?: string;
+};
+
+export const departmentSeedData: DepartmentSeed[] = [
+  {
+    name: "Administration",
+    employees: [
+      { firstName: "Zoë", lastName: "Robins" },
+      { firstName: "Madeleine", lastName: "Madden" },
+    ],
+  },
+  {
+    name: "Audit",
+    employees: [
+      { firstName: "Josha", lastName: "Sadowski" },
+      { firstName: "Kate", lastName: "Fleetwood" },
+    ],
+  },
+  {
+    name: "Banking Operations",
+    employees: [
+      { firstName: "Priyanka", lastName: "Bose" },
+      { firstName: "Hammed", lastName: "Animashaun" },
+      { firstName: "Álvaro", lastName: "Morte" },
+      { firstName: "Taylor", lastName: "Napier" },
+      { firstName: "Alan", lastName: "Simmonds" },
+    ],
+  },
+  {
+    name: "Communications",
+    employees: [
+      { firstName: "Gil", lastName: "Cardinal" },
+      { firstName: "Richard J.", lastName: "Lewis" },
+    ],
+  },
+  {
+    name: "Corporate Services",
+    employees: [
+      { firstName: "Randy", lastName: "Bradshaw" },
+      { firstName: "Tracey", lastName: "Cook" },
+      { firstName: "Lubomir", lastName: "Mykytiuk" },
+    ],
+  },
+  {
+    name: "Facilities",
+    employees: [
+      { firstName: "Dakota", lastName: "House" },
+      { firstName: "Lori Lea", lastName: "Okemah" },
+      { firstName: "Renae", lastName: "Morrisseau" },
+      { firstName: "Rick", lastName: "Belcourt" },
+    ],
+  },
+  {
+    name: "Financial Services",
+    employees: [
+      { firstName: "Selina", lastName: "Hanusa" },
+      { firstName: "Buffy", lastName: "Gaudry" },
+      { firstName: "Shaneen Ann", lastName: "Fox" },
+      { firstName: "Allan", lastName: "Little" },
+      { firstName: "Danny", lastName: "Rabbit" },
+    ],
+  },
+  {
+    name: "Human Resources",
+    employees: [
+      { firstName: "Jesse Ed", lastName: "Azure" },
+      { firstName: "Stacy", lastName: "Da Silva" },
+      { firstName: "Vladimír", lastName: "Valenta" },
+      { firstName: "Samone", lastName: "Sayeses-Whitney" },
+      { firstName: "Paul", lastName: "Coeur" },
+    ],
+  },
+  {
+    name: "Information Technology",
+    employees: [
+      { firstName: "Graham", lastName: "Greene" },
+      { firstName: "Sandika", lastName: "Evergreen" },
+      { firstName: "Jennifer", lastName: "Rodriguez" },
+    ],
+  },
+  {
+    name: "IT Technician",
+    employees: [
+      { firstName: "Aiyana", lastName: "Littlebear" },
+      { firstName: "Inara", lastName: "Thunderbird" },
+      { firstName: "Kaya", lastName: "Runningbrook" },
+      { firstName: "Elara", lastName: "Firehawk" },
+      { firstName: "Siona", lastName: "Moonflower" },
+      { firstName: "Kaiyu", lastName: "Greywolf" },
+      { firstName: "Ayawamat", lastName: "Nightwind" },
+      { firstName: "Tala", lastName: "Braveheart" },
+      { firstName: "Iniko", lastName: "Stonebear" },
+      { firstName: "Onatah", lastName: "Redhawk" },
+    ],
+  },
+];
+
+export const roleSeedData: RoleSeed[] = [
   { role: "CEO/Chair of Board", firstName: "Jo-Anne", lastName: "Sinclair" },
   { role: "COO/VP Operations", firstName: "Jackson", lastName: "Smith" },
   { role: "CFO/VP Administration", firstName: "Susan", lastName: "Thomas" },
@@ -84,5 +196,3 @@ export const organization: Role[] = [
     lastName: "Wingnut",
   },
 ];
-
-export default organization;
